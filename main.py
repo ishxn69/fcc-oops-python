@@ -1,7 +1,11 @@
 class Item:
-    #these methods with __ are known as magic methods.
-    #added a default value to quantity attribute
-    def __init__(self, name, price, quantity=0):
+    # added datatypes to the constructor attributes
+    def __init__(self, name: str, price: float, quantity=0):
+        #perform validation on the values received for attributes
+        assert price >= 0, f"Price {price} is not greater than or equal to zero!"
+        assert quantity >= 0, f"Quantity {quantity} is not greater than or equal to zero!"
+        
+        #assigned values to self object
         self.name = name
         self.price = price
         self.quantity = quantity
