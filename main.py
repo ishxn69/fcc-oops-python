@@ -20,14 +20,24 @@ class Item:
     
     def apply_discount(self):
         self.price = self.price * self.pay_rate 
-
+    
+    # since we got a very user unfriendly output when we printed Item.all
+    # we will now create a __repr__ method to make it's representation more readable.
+    # we return the instances exactly like they are instantiated
+    # as this is the best practice according to Python documentation
+    '''
+    Why is the above a best practice? Because it helps us create instances immediately by
+    copying the items of __repr__ method output and pasting it into the python console.
+    '''
+    def __repr__(self):
+        return f'Item("{self.name}", {self.price}, {self.quantity})'
+    
 item1 = Item("Phone", 100, 1)
 item2 = Item("Laptop", 1000, 3)
 item3 = Item("Cable", 10, 5)
 item4 = Item("Mouse", 50, 5)
 item5 = Item("Keyboard", 75, 5)
+
+#After __repr__ method, output of Item.all is much more readable.
 print(Item.all)
 
-# Printing names of all the Instances of class so far.
-for instance in Item.all:
-    print(instance.name)
