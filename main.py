@@ -1,4 +1,3 @@
-#we import a library to read CSV files.
 import csv
 
 class Item:
@@ -20,14 +19,9 @@ class Item:
     
     def apply_discount(self):
         self.price = self.price * self.pay_rate 
-    
-    #We use a class method (no self), since we have to instantiate objects from CSV
-    #Since these are not part of the class, passing self doesn't make sense.
-    
-    #This is a decorator. They add new functionality (enhance/modify) 
-    #to existing objects.
+
     @classmethod
-    def instantiate_from_csv(cls): #notice class itself is passed as argument
+    def instantiate_from_csv(cls): 
         with open('items.csv', 'r') as f:
             reader = csv.DictReader(f)
             items = list(reader)
@@ -42,7 +36,6 @@ class Item:
     @staticmethod
     def is_integer(num):
         if isinstance(num, float):
-            #will count the floats that end with .0 as integers
             return num.is_integer()
         
         elif isinstance(num, int):
@@ -51,17 +44,26 @@ class Item:
         else:
             return False
     
+    #We change the __repr__() method to include the name of the class
+    #rather than hardcode it with string name, as otherwise it will print
+    #'Item(name, price,quantity)' even for the child classes.
+    #we do this using 'self.__class__.__name__'
     def __repr__(self):
-        return f'Item("{self.name}", {self.price}, {self.quantity})'
+        return f'{self.__class__.__name__}("{self.name}", {self.price}, {self.quantity})'
 
-#After __repr__ method, output of Item.all is much more readable.
+#Example of Inheritance: The Phone class inherits from the Item class
+class Phone(Item):
+    def __init__(self, name: str, price: float, quantity=0, broken_phones=0):
+        #The super method inherits all the attributes of the parent class
+        #This includes the list all, hence we do not need to specify it again.
+        super().__init__(name, price, quantity)
+        assert broken_phones >=0, f"Broken phones {broken_phones} is not greater than or equal to zero!"
+        
+        self.broken_phones = broken_phones
 
-#Calling a class method:
-#NOTE: I had gotten an error running this (error: item.get() returns None)
-#the reason was that I had added spaces in csv file titles. There should be
-#no space in csv files, just separate by commas.
-Item.instantiate_from_csv()
+phone1 = Phone('isgPhoneM12', 500, 6, 2)
+# We can print Item.all and not 'Phone.all' and still see our item instance's data 
+# added to the all list. This is because the all list is inherited from the parent 
+# class. Also notice that it Prints Phone() instead of Item() since I had modified
+# the __repr__() method.
 print(Item.all)
-
-#calling a static method
-print('Is the provided number an integer?',Item.is_integer(7.0))
