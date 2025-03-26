@@ -1,17 +1,10 @@
-# we import the 'Item' and 'Phone' classes from item.py 
-# and phone.py respectively
 from item import Item
 
-item1 = Item('Phone', 100)
+item1 = Item('Phone', 1000)
 
-# Below, we set name and print (Which is possible due
-# to getter and setter functions that we created.)
-# We do not need to specify __name, we can simply 
-# use the variable name without access modifier.
+#code after we encapsulated the price attribute
+item1.apply_increment(0.2)
+item1.apply_discount()
+item1.apply_increment(0.3)
 
-# item1.name = 'AnotherItem' will return Exception as
-# It's length is above 10 chars
-item1.name = 'OtherItem' #this will work
-
-#validation check will run before value is printed.
-print(item1.name)
+print(item1.price) # 1248.0
