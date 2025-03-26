@@ -1,7 +1,12 @@
 from phone import Phone
+from keyboard import Keyboard
 
-phone1 = Phone('ixgProMax', 1399, 12)
+item1 = Keyboard("ixgKeyboardPro", 500, 3)
 
-phone1.send_email()
+item1.apply_discount()
+
+# we get 350 as we had overriden the 'pay_rate' attribute in 
+# Keyboard class initialization
+print(item1.price) 
 
 
