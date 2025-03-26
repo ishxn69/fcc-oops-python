@@ -47,7 +47,7 @@ class Item:
     def price(self):
         return self.__price
     
-    #we shifted the apply discount method from the bottom
+    #we shifted the apply discount method from the bottomS
     def apply_discount(self):
         self.__price = self.__price * self.pay_rate
     
@@ -68,3 +68,22 @@ class Item:
     
     def __repr__(self):
         return f'{self.__class__.__name__}("{self.name}", {self.__price}, {self.quantity})'
+    
+    # Now, these methods below do not actually work
+    # Have used them as an example.
+    def __connect(self, smpt_server):
+        pass
+    
+    def __prepare_body(self):
+        return f'''
+        Hello User,
+        We have {self.quantity} items of {self.name} at ${self.price} a piece!
+        '''
+    
+    def __send(self):
+        pass
+    
+    def send_email(self):
+        self.connect('smtp.string')
+        self.__prepare_body()
+        self.__send()

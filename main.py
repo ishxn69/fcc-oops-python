@@ -1,10 +1,7 @@
-from item import Item
+from phone import Phone
 
-item1 = Item('Phone', 1000)
+phone1 = Phone('ixgProMax', 1399, 12)
 
-#code after we encapsulated the price attribute
-item1.apply_increment(0.2)
-item1.apply_discount()
-item1.apply_increment(0.3)
+phone1.send_email()
 
-print(item1.price) # 1248.0
+
